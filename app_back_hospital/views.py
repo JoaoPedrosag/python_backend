@@ -41,12 +41,12 @@ def upload_audio(request):
 
 
 def get_consultas_by_paciente(request, patient_id):
-    consultas = Consulta.objects.filter(paciente_id=patient_id).values('texto_convertido', 'data_consulta')
-    consultas_list = list(consultas)
-    return JsonResponse(consultas_list, safe=False)
+    consults = Consult.objects.filter(patient_id=patient_id).values('converted_text', 'consultation_date')
+    consults_list = list(consults)
+    return JsonResponse(consults_list, safe=False)
 
 def get_all_pacientes(request):
-    pacientes = Paciente.objects.all().values('id', 'name')
-    pacientes_list = list(pacientes)
-    print(pacientes_list)
-    return JsonResponse(pacientes_list, safe=False)
+    patients = Patient.objects.all().values('id', 'name')
+    patients_list = list(patients)
+    print(patients_list)
+    return JsonResponse(patients_list, safe=False)
