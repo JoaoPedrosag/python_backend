@@ -6,7 +6,7 @@ import tempfile
 
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Paciente, Consulta
+from .models import Patient, Consult
 
 transcriptions = {}
 
@@ -21,7 +21,7 @@ def upload_audio(request):
             name = request.POST.get('name')
             patient_id = request.POST.get('id')
 
-            patient, created = Paciente.objects.get_or_create(id=patient_id, defaults={'name': name})
+            patient, created = Patient.objects.get_or_create(id=patient_id, defaults={'name': name})
 
             with tempfile.NamedTemporaryFile(delete=False) as temp_file:
                 for chunk in file.chunks():
@@ -29,11 +29,11 @@ def upload_audio(request):
 
             with sr.AudioFile(temp_file.name) as source:
                 audio_data = recognizer.record(source)
-                texto = recognizer.recognize_google(audio_data, language="pt-BR")
+                text = recognizer.recognize_google(audio_data, language="pt-BR")
 
-            consult = Consulta.objects.create(paciente=patient, texto_convertido=texto)
+            consult = Consult.objects.create(patient=patient, converted_text=text)
 
-            return JsonResponse({'status': 'success', 'converted_text': consult.texto_convertido})
+            return JsonResponse({'status': 'success', 'converted_text': consult.converted_text})
         else:
             return HttpResponseBadRequest('Method not allowed')
     except Exception as e:
