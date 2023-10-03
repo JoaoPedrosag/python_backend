@@ -13,3 +13,4 @@ class Consult(models.Model):
     patient = models.ForeignKey(Patient, related_name='records', on_delete=models.CASCADE)
     consultation_date = models.DateTimeField(default=timezone.now)
     converted_text = models.TextField()
+    audio_path = models.CharField(max_length=500, null=True, blank=True)
