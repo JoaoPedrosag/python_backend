@@ -1,1 +1,10 @@
 audios/
+.idea/
+# Python cache files
+__pycache__/
+*.py[cod]
+# Ignorar todos os __pycache__ no projeto
+**/__pycache__/
+
+# Ignorar todos os .pyc, .pyo e .pyd no projeto
+*.py[cod]
