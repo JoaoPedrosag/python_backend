@@ -22,9 +22,14 @@ pip install -r requirements.txt
 ```
 
 ## Executando o Projeto
-1. Inicie o serviço Celery para tarefas em background:
+1. Inicie o serviço Celery para tarefas em background(Windows):
 ```bash
 celery -A django_back worker --pool=solo -l info
+```
+
+Se for Linux
+```bash
+celery -A django_back worker --loglevel=info
 ```
 
 2. Em outro terminal, inicie o servidor Django:
